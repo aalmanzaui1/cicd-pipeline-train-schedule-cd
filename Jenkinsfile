@@ -42,9 +42,7 @@ pipeline {
             when{
                 branch 'master'
             }
-            input: [
-                message: 'Is correct in staging'
-            ]
+            input: 'Is correct in staging'
             milestone(1)
             steps{
                     withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]{
