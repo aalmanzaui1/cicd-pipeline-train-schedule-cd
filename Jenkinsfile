@@ -8,24 +8,24 @@ pipeline {
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
-        stage('Deploy_to_staging'){
-            when{
+                stage('DeployToStaging') {
+            when {
                 branch 'master'
             }
-            steps{
-                withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]{
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
                     sshPublisher(
                         failOnError: true,
                         continueOnError: false,
-                        publishers[
+                        publishers: [
                             sshPublisherDesc(
                                 configName: 'staging',
-                                sshCredentials:[
+                                sshCredentials: [
                                     username: "$USERNAME",
-                                    encryptedPassphrase: "$USERPASS",
-                                ],
+                                    encryptedPassphrase: "$USERPASS"
+                                ], 
                                 transfers: [
-                                    sshTranfer(
+                                    sshTransfer(
                                         sourceFiles: 'dist/trainSchedule.zip',
                                         removePrefix: 'dist/',
                                         remoteDirectory: '/tmp',
