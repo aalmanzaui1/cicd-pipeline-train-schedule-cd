@@ -9,23 +9,23 @@ pipeline {
             }
         }
         stage('Deploy_to_staging') {
-            when{
+            when {
                 branch 'master'
             }
-            steps {
+            steps{
                 withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]){
                     sshPublisher(
                         failOnError: true,
                         continueOnError: false,
-                        publishers [
+                        publishers[
                             sshPublisherDesc(
                                 configName: 'staging',
                                 sshCredentials: [
                                     username: "$USERNAME",
-                                    encryptedPassphrase: "$USERPASS",
+                                    encryptedPassphrase: "$USERPASS"
                                 ],
                                 transfers: [
-                                    sshTranfer(
+                                    sshTransfer(
                                         sourceFiles: 'dist/trainSchedule.zip',
                                         removePrefix: 'dist/',
                                         remoteDirectory: '/tmp',
