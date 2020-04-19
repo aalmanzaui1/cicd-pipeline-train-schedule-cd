@@ -12,7 +12,7 @@ pipeline {
             when{
                 branch 'master'
             }
-            withCredentials([usernamePassword(credentialsId: 'Github_mine', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]{
+            withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]{
                 sshPublisher(
                     failOnError: true,
                     continueOnError: false,
@@ -44,7 +44,7 @@ pipeline {
                 message: 'Is correct in staging'
             ]
             milestone(1)
-            withCredentials([usernamePassword(credentialsId: 'Github_mine', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]{
+            withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]{
                 sshPublisher(
                     failOnError: true,
                     continueOnError: false,
